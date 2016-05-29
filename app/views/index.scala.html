@@ -14,10 +14,13 @@
     <script type="text/javascript">
         window.onload = function(){
             body = document.getElementsByTagName('body')[0];
+            protocol = 'ws';
             wsPath = location.host + location.pathname;
             if(!wsPath.endsWith('/'))
                 wsPath += '/';
-            body.setAttribute('data-ws-url','ws://' + wsPath + 'ws')
+            if(location.protocol == 'https:')
+                protocol +='s'
+            body.setAttribute('data-ws-url',protocol + '://' + wsPath + 'ws')
         };
     </script>
 </head>
