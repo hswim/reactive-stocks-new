@@ -1,5 +1,13 @@
 $(document).ready ->
-  ws = new WebSocket $("body").attr("data-ws-url")
+  protocol = 'ws';
+  if(location.protocol == 'https:')
+      protocol +='s'
+  wsPath = location.host + location.pathname;
+  if(!wsPath.endsWith('/'))
+      wsPath += '/';
+  wsUrl = protocol + '://' + wsPath + 'ws';
+  $("body").attr("data-ws-url", wsUrl)
+  ws = new WebSocket wsUrl
   ws.onmessage = (event) ->
     message = JSON.parse event.data
     switch message.type
